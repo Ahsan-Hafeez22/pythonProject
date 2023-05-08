@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Welcome to the signup page</h1>
+<form action="{% url 'mysignup' %}" method="post">
+    {% csrf_token %}
+    <input type="email" id="email" name="email" placeholder="Email"> <br>
+    <input type="text" id="username" name="username" placeholder="Username"><br>
+    <input type="password" id="psd" name="password" placeholder="Password"><br>
+    <input type="password" id="re_psd" name="re_password" placeholder="Re_Enter Password"><br>
+    <button type="submit">submit</button>
+</form>
+<h1>{{msg}}</h1>
+</body>
+</html>
