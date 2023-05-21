@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Password reset complete{% endblock %}
+{% block content %}
+<div class="card text-center" style="width: 800px; margin:200px auto; padding:35px; background-color:#E5E5E5;" >
+  <h1>Password reset complete</h1>
+  <p style="color:black; padding:20px;" class="font-weight-bold">Your password has been set.  You may go ahead and log in now</p>
+  <a style="color:white; text-decoration:none; background-color:#002D62; color:white; width:150px;  margin:auto;"  class="btn" href="{% url 'myIndex' %}">Login</a>
+
+</div>
+
+{% endblock %}

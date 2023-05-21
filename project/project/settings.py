@@ -123,7 +123,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'ahsanhafeez0324@gmail.com'
-EMAIL_HOST_PASSWORD = 'vbhecuqsuprvxnlt'
+EMAIL_HOST_PASSWORD = 'gddkpnhyveqftgjn'
+
 
 
 STATIC_URL = '/static/'

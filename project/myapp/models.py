@@ -5,7 +5,7 @@ from django.db import models
 import os
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
-
+import pandas as pd
 
 class customer(models.Model):
     first_name = models.CharField(max_length=25)
@@ -40,3 +40,14 @@ def delete_log(sender, instance, **kwargs):
     with open('hello.csv', 'a', newline='') as ufile:
         writer = csv.writer(ufile)
         writer.writerow([instance.username, instance.id, datetime.now()])
+
+
+# @receiver(pre_delete, sender=User)
+# def log(sender, instance, **kwargs):
+#     user_log = [{
+#         'Name of User': instance.get_full_name(),
+#         'User Id': instance.id,
+#         'DateTime': datetime.now()
+#     }]
+#     df = pd.DataFrame(user_log)
+#     df.to_csv('user_log.csv', header=False, sep="|", index=False, mode='a')

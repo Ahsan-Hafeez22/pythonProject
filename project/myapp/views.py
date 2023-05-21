@@ -38,9 +38,9 @@ def signup(request):
                 em.send()
                 return redirect('/')
             except:
-                render(request, 'mysignup.html', {'msg': 'Unable to sign Up'})
+                render(request, 'mysignup.html', {'message': 'Unable to sign Up'})
         else:
-            render(request, 'mysignup.html', {'msg': 'password do not match'})
+            render(request, 'mysignup.html', {'message': 'password do not match'})
     return render(request, 'mysignup.html')
 
 

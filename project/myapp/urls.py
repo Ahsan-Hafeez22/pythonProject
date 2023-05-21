@@ -26,9 +26,9 @@ urlpatterns = [
     path('del <int:id>', views.delete, name='del'),
     path('update <int:id>', views.update, name='update'),
     path('activate/<str:id>/', views.activate, name='activate'),
-    path('reset', PasswordResetView.as_view(), name='password_reset'),
-    path('password_reset/done/', PasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('password_confirm/<uidb64>/<token>', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
-    path('password_complete/', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('reset', PasswordResetView.as_view(template_name='forgot_password.html'), name='password_reset'),
+    path('password_reset/done/', PasswordResetDoneView.as_view(template_name='password_sent.html'), name='password_reset_done'),
+    path('password_confirm/<uidb64>/<token>', PasswordResetConfirmView.as_view(template_name='new_password.html'), name='password_reset_confirm'),
+    path('password_complete/', PasswordResetCompleteView.as_view(template_name='reset_complete.html'), name='password_reset_complete'),
 
 ]
