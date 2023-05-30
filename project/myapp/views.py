@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from .models import customer, extended
 from django.core.mail import EmailMessage
 import jwt
+from .form import bookForm
+from .serializer import book_serializer
+from django.http import JsonResponse,HttpResponse
 
 # Create your views here.
 def index(request):
@@ -106,3 +109,20 @@ def activate(request, id):
     u.is_active = True
     u.save()
     return redirect('main_page')
+
+
+def formView(request):
+    if request.method == 'POST':
+        B = bookForm(request.POST)
+        if B.is_valid():
+            B.save()
+            return HttpResponse('saved')
+    b = bookForm()
+    return render(request, 'form.html', {'form': b})
+
+from .models import book
+def all_data(request):
+    if request.method == "GET":
+        D = book.objects.all()
+        mydata = book_serializer(D, many=True)
+        return JsonResponse(mydata.data, safe=False)

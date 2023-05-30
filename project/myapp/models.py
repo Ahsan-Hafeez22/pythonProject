@@ -7,6 +7,7 @@ from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 import pandas as pd
 
+
 class customer(models.Model):
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
@@ -17,6 +18,14 @@ class customer(models.Model):
 
     def __str__(self):
         return self.first_name + " " + self.last_name
+
+
+class book(models.Model):
+    title = models.CharField(max_length=20)
+    auther = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.title
 
 
 class extended(models.Model):
@@ -40,7 +49,6 @@ def delete_log(sender, instance, **kwargs):
     with open('hello.csv', 'a', newline='') as ufile:
         writer = csv.writer(ufile)
         writer.writerow([instance.username, instance.id, datetime.now()])
-
 
 # @receiver(pre_delete, sender=User)
 # def log(sender, instance, **kwargs):
