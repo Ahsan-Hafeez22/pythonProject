@@ -32,5 +32,6 @@ urlpatterns = [
     path('password_complete/', PasswordResetCompleteView.as_view(template_name='reset_complete.html'), name='password_reset_complete'),
     path('modelform/', views.formView, name='form'),
     path('all_data/', views.all_data, name='serial'),
+    path('book_data/<int:id>/', views.book_data, name='bookdata'),
 
 ]

@@ -6,8 +6,10 @@ from django.core.mail import EmailMessage
 import jwt
 from .form import bookForm
 from .serializer import book_serializer
-from django.http import JsonResponse,HttpResponse
-
+from django.http import JsonResponse, HttpResponse
+from .models import book
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 # Create your views here.
 def index(request):
     if request.method == 'POST':
@@ -120,9 +122,45 @@ def formView(request):
     b = bookForm()
     return render(request, 'form.html', {'form': b})
 
-from .models import book
+
+@api_view(["GET", "POST"])
 def all_data(request):
     if request.method == "GET":
         D = book.objects.all()
         mydata = book_serializer(D, many=True)
-        return JsonResponse(mydata.data, safe=False)
+        return Response(mydata.data)
+    if request.method == "POST":
+        mydata = book_serializer(data=request.data)
+        if mydata.is_valid():
+            mydata.save()
+            D = book.objects.all()
+            mydata = book_serializer(D, many=True)
+            return Response(mydata.data)
+
+from rest_framework import status
+@api_view(["GET","PUT", "DELETE"])
+def book_data(request, id):
+    try:
+        obj = book.objects.get(pk=id)
+    except:
+        # return redirect("/all_data/")
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == "GET":
+        mydata = book_serializer(obj)
+        return Response(mydata.data)
+
+    if request.method == "PUT":
+        mydata = book_serializer(obj, request.data)
+        if mydata.is_valid():
+            mydata.save()
+            return Response(mydata.data)
+        else:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+    if request.method == "DELETE":
+        obj.delete()
+        # ob = book.objects.all()
+        # mydata = book_serializer(ob, many=True)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+

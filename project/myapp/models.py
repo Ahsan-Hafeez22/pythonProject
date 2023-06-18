@@ -50,6 +50,15 @@ def delete_log(sender, instance, **kwargs):
         writer = csv.writer(ufile)
         writer.writerow([instance.username, instance.id, datetime.now()])
 
+
+
+@receiver(pre_delete, sender=book)
+def delete_logForBook(sender, instance, **kwargs):
+    with open('helloBook.csv', 'a', newline='') as ufile:
+        writer = csv.writer(ufile)
+        writer.writerow([instance.title, instance.auther, instance.pk, datetime.now()])
+
+
 # @receiver(pre_delete, sender=User)
 # def log(sender, instance, **kwargs):
 #     user_log = [{
